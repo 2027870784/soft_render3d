@@ -1,0 +1,109 @@
+# =========================
+# C++ build artifacts
+# =========================
+*.o
+*.obj
+*.lo
+*.slo
+*.gch
+*.pch
+*.a
+*.lib
+*.la
+*.lai
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# =========================
+# Debug and profiling
+# =========================
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.mod*
+*.cmd
+*.log
+*.prof
+*.gcno
+*.gcda
+*.gcov
+*.stackdump
+
+# =========================
+# CMake / Make / Ninja
+# =========================
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+compile_commands.json
+CTestTestfile.cmake
+cmake_install.cmake
+install_manifest.txt
+Makefile
+makedep*
+ninja.build
+ninja_log
+ninja_deps
+build/
+out/
+bin/
+lib/
+
+# =========================
+# Autotools
+# =========================
+aclocal.m4
+autom4te.cache/
+compile
+config.guess
+config.log
+config.status
+config.sub
+configure
+depcomp
+install-sh
+ltmain.sh
+m4/
+missing
+
+# =========================
+# IDE/editor files
+# =========================
+.idea/
+.vscode/
+*.code-workspace
+.vs/
+*.VC.db
+*.VC.opendb
+*.sln.docstates
+*.user
+*.userosscache
+*.suo
+*.ncb
+*.opensdf
+*.sdf
+*.ipch
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+*.swp
+*~
