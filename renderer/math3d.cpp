@@ -76,7 +76,7 @@ Vector4 Vector4::cross(const Vector4& other) const {
 //Matrix4类
 Matrix4::Matrix4() : Matrix4(0.0f) {}
 
-Matrix4::Matrix4(float elem) {
+Matrix4::Matrix4(float elem) {//单值初始化矩阵所有元素值
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             m[i][j] = elem;
@@ -93,7 +93,7 @@ Matrix4::Matrix4(float m00, float m01, float m02, float m03,
         {m20, m21, m22, m23},
         {m30, m31, m32, m33}} {}
 
-Matrix4 Matrix4::identity() {
+Matrix4 Matrix4::identity() {//返回单位矩阵
     return Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
                   0.0f, 0.0f, 1.0f, 0.0f,
@@ -102,7 +102,7 @@ Matrix4 Matrix4::identity() {
 
 Matrix4::~Matrix4() = default;
 
-Vector4 Matrix4::operator*(const Vector4& other) const {
+Vector4 Matrix4::operator*(const Vector4& other) const {//矩阵与向量乘法
     return Vector4(
         other.x * m[0][0] + other.y * m[0][1] + other.z * m[0][2] + other.w * m[0][3],
         other.x * m[1][0] + other.y * m[1][1] + other.z * m[1][2] + other.w * m[1][3],
