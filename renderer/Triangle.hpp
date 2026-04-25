@@ -12,6 +12,7 @@ public:
 
     Triangle();
     Triangle(const std::array<Vector4,3>& vexs, const std::array<Vector3,3>& colors, const Vector3& n);
+    Triangle(const Vector4& a, const Vector4& b, const Vector4& c, const Vector3& color, const Vector3& n);
     ~Triangle();
 
     //返回三角形顶点坐标

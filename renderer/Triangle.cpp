@@ -32,11 +32,19 @@ void Triangle::setColor(int index, float r, float g, float b){
         std::cout << "Error: color value out of range." << std::endl;
         return;
     }
-    color[index] = Vector3(r,g,b);
+    color[index] = Vector3(r/255.,g/255.,b/255.);
 }
 
 void Triangle::setColor(int index, const Vector3& col){
     setColor(index, col.r(), col.g(), col.b());
+}
+
+Triangle::Triangle(const Vector4& a, const Vector4& b, const Vector4& c, const Vector3& color, const Vector3& n){
+    setVexs({a,b,c});
+    setColor(0, color);
+    setColor(1, color);
+    setColor(2, color);
+    setNormal(n);
 }
 
 void Triangle::setNormal(const Vector3& n){
