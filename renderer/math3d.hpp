@@ -1,10 +1,11 @@
 #pragma once
 
 class Vector3 {
-public:
-    float x, y, z;
+private:
+    float xx, yy, zz;
 
-    Vector3();
+public:
+    Vector3():xx(0.0f), yy(0.0f), zz(0.0f) {}
     Vector3(float x, float y, float z);
     ~Vector3();
 
@@ -15,34 +16,36 @@ public:
     float norm() const;
     Vector3 normalize() const;
 
-    float x() const {return x;}
-    float y() const {return y;}
-    float z() const {return z;}
+    float x() const {return xx;}
+    float y() const {return yy;}
+    float z() const {return zz;}
 
-    float r() const {return x;}
-    float g() const {return y;}
-    float b() const {return z;}
+    float r() const {return xx;}
+    float g() const {return yy;}
+    float b() const {return zz;}
 };
 
 class Vector4 {
-public:
-    float x, y, z, w;
+private:
+    float xx, yy, zz, ww;
 
-    Vector4();
+public:
+    Vector4():xx(0.0f), yy(0.0f), zz(0.0f), ww(0.0f) {}
     Vector4(float x, float y, float z, float w);
     ~Vector4();
 
     Vector4 operator+(const Vector4& other) const;
     Vector4 operator-(const Vector4& other) const;
-    float norm() const;
-    Vector4 normalize() const;
-    float dot(const Vector4& other) const;
-    Vector4 cross(const Vector4& other) const;
+    float normXYZ() const;
+    Vector4 normalizeXYZ() const;
+    Vector4 w_division() const;
+    float dotXYZ(const Vector4& other) const;
+    Vector4 crossXYZ(const Vector4& other) const;//计算XYZ分量的叉积
 
-    float x() const {return x;}
-    float y() const {return y;}
-    float z() const {return z;}
-    float w() const {return w;}
+    float x() const {return xx;}
+    float y() const {return yy;}
+    float z() const {return zz;}
+    float w() const {return ww;}
 };
 
 class Matrix4 {
