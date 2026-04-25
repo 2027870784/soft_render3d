@@ -14,6 +14,14 @@ public:
     Vector3 cross(const Vector3& other) const;
     float norm() const;
     Vector3 normalize() const;
+
+    float x() const {return x;}
+    float y() const {return y;}
+    float z() const {return z;}
+
+    float r() const {return x;}
+    float g() const {return y;}
+    float b() const {return z;}
 };
 
 class Vector4 {
@@ -30,6 +38,11 @@ public:
     Vector4 normalize() const;
     float dot(const Vector4& other) const;
     Vector4 cross(const Vector4& other) const;
+
+    float x() const {return x;}
+    float y() const {return y;}
+    float z() const {return z;}
+    float w() const {return w;}
 };
 
 class Matrix4 {
