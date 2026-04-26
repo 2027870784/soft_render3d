@@ -59,6 +59,9 @@ void Pipeline::render(const Mesh& mesh,
         Vector4 v1_clip = MVP * triangle.b();
         Vector4 v2_clip = MVP * triangle.c();
 
+        if(std::abs(v0_clip.w()) <= 1e-6 || std::abs(v1_clip.w()) <= 1e-6 || std::abs(v2_clip.w()) <= 1e-6){
+            continue;
+        }
         Vector4 v0_ndc = v0_clip.w_division();
         Vector4 v1_ndc = v1_clip.w_division();
         Vector4 v2_ndc = v2_clip.w_division();
@@ -90,6 +93,6 @@ void Pipeline::render(const Mesh& mesh,
         Triangle shaded_triangle({sv0, sv1, sv2}, shaded_colors, triangle.getNormal());
         rasterizer.rasterizeTriangle(shaded_triangle, framebuffer);
         /*by AI end*/
-        framebuffer.saveAsPPM("../build/output.ppm");
     }
+    framebuffer.saveAsPPM("./output.ppm");
 }

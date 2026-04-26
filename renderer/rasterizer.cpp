@@ -67,7 +67,6 @@ void Rasterizer::rasterizeTriangle(const Triangle& triangle, Framebuffer& frameb
 
                 int pixel_index = framebuffer.getIndex(x,y);
                 if(z_interpolated < framebuffer.z_buffer[pixel_index]){
-                    framebuffer.z_buffer[pixel_index] = z_interpolated;
                     //利用重心坐标插值颜色
                     Vector3 final_color = colors[0] * alpha + colors[1] * beta + colors[2] * gamma;
                     framebuffer.setPixel(x,y,z_interpolated,final_color);

@@ -1,6 +1,7 @@
 #pragma once
 #include "math3d.hpp"
 #include <array>
+#include <vector>
 
 class Triangle {
 public:
