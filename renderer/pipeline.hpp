@@ -15,6 +15,7 @@ class Pipeline{
                     const Matrix4& model_matrix,
                     const Vector3& eye_pos,
                     const Vector3& light_dir);
+        const Framebuffer& getFramebuffer() const { return framebuffer; }
     private:
         Framebuffer framebuffer;
         Vector3 light_dir;

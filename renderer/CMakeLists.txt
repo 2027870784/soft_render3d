@@ -41,6 +41,10 @@ endif()
 add_executable(soft_render3d main.cpp)
 target_link_libraries(soft_render3d PRIVATE renderer_core)
 
+if(WIN32)
+    target_link_libraries(soft_render3d PRIVATE user32 gdi32)
+endif()
+
 set_target_properties(soft_render3d PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )

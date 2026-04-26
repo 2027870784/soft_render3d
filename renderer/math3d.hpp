@@ -1,5 +1,7 @@
 #pragma once
 
+class Vector4;
+
 class Vector3 {
 private:
     float xx, yy, zz;
@@ -17,6 +19,8 @@ public:
     Vector3 cross(const Vector3& other) const;
     float norm() const;
     Vector3 normalize() const;
+
+    Vector4 toVector4_w0() const;
 
     float x() const {return xx;}
     float y() const {return yy;}

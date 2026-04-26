@@ -67,8 +67,11 @@ void Rasterizer::rasterizeTriangle(const Triangle& triangle, Framebuffer& frameb
 
                 int pixel_index = framebuffer.getIndex(x,y);
                 if(z_interpolated < framebuffer.z_buffer[pixel_index]){
-                    //利用重心坐标插值颜色
-                    Vector3 final_color = colors[0] * alpha + colors[1] * beta + colors[2] * gamma;
+                    // 对颜色做透视正确插值，避免倾斜面上出现屏幕空间线性插值失真
+                    Vector3 final_color =
+                        (colors[0] * (alpha / a.w()) +
+                         colors[1] * (beta / b.w()) +
+                         colors[2] * (gamma / c.w())) * w_reciprocal;
                     framebuffer.setPixel(x,y,z_interpolated,final_color);
                 }
             }   

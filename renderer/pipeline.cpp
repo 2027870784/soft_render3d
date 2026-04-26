@@ -66,33 +66,35 @@ void Pipeline::render(const Mesh& mesh,
         Vector4 v1_ndc = v1_clip.w_division();
         Vector4 v2_ndc = v2_clip.w_division();
 
-        float intensity = std::max(0.0f, triangle.getNormal().normalize().dot(light_dir));
+        auto normal_world_ = model_matrix * triangle.getNormal().toVector4_w0();
+        auto normal_world = normal_world_.toVector3().normalize();
+        
+        float intensity = std::max(0.0f, normal_world.dot(light_dir));
         auto colors = triangle.getColors();
 
         Vector4 sv0(
             (v0_ndc.x() * 0.5f + 0.5f) * (framebuffer.getWidth() - 1),
             (1.0f - (v0_ndc.y() * 0.5f + 0.5f)) * (framebuffer.getHeight() - 1),
             v0_ndc.z() * 0.5f + 0.5f,
-            1.0f);
+            v0_clip.w());
         Vector4 sv1(
             (v1_ndc.x() * 0.5f + 0.5f) * (framebuffer.getWidth() - 1),
             (1.0f - (v1_ndc.y() * 0.5f + 0.5f)) * (framebuffer.getHeight() - 1),
             v1_ndc.z() * 0.5f + 0.5f,
-            1.0f);
+            v1_clip.w());
         Vector4 sv2(
             (v2_ndc.x() * 0.5f + 0.5f) * (framebuffer.getWidth() - 1),
             (1.0f - (v2_ndc.y() * 0.5f + 0.5f)) * (framebuffer.getHeight() - 1),
             v2_ndc.z() * 0.5f + 0.5f,
-            1.0f);
+            v2_clip.w());
 
         std::array<Vector3, 3> shaded_colors = {
             colors[0] * intensity,
             colors[1] * intensity,
             colors[2] * intensity
         };
-        Triangle shaded_triangle({sv0, sv1, sv2}, shaded_colors, triangle.getNormal());
+        Triangle shaded_triangle({sv0, sv1, sv2}, shaded_colors, normal_world);
         rasterizer.rasterizeTriangle(shaded_triangle, framebuffer);
         /*by AI end*/
     }
-    framebuffer.saveAsPPM("./output.ppm");
 }
