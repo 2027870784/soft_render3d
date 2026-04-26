@@ -19,6 +19,12 @@ Vector3 Vector3::operator*(float scalar) const {
     return {xx * scalar, yy * scalar, zz * scalar};
 }
 
+Vector3 Vector3::operator=(const Vector3& other){
+    xx = other.x();
+    yy = other.y();
+    zz = other.z();
+    return *this;
+}
 
 
 float Vector3::dot(const Vector3& other) const {

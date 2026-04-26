@@ -12,6 +12,7 @@ public:
     Vector3 operator+(const Vector3& other) const;
     Vector3 operator-(const Vector3& other) const;
     Vector3 operator*(float scalar) const;
+    Vector3 operator=(const Vector3& other);
     float dot(const Vector3& other) const;
     Vector3 cross(const Vector3& other) const;
     float norm() const;
