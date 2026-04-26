@@ -6,10 +6,10 @@
 
 #define MY_PI 3.14159265
 
-class Pipline{
+class Pipeline{
     public:
-        Pipline(int width = 800, int height = 600);
-        ~Pipline();
+        Pipeline(int width = 800, int height = 600);
+        ~Pipeline();
 
         void render(const Mesh& mesh,
                     const Matrix4& model_matrix,

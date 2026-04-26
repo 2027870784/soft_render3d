@@ -1,4 +1,4 @@
-#include "pipline.hpp"
+#include "pipeline.hpp"
 #include "rasterizer.hpp"
 
 namespace{
@@ -32,14 +32,14 @@ namespace{
     }
 }
 
-Pipline::Pipline(int width, int height)
+Pipeline::Pipeline(int width, int height)
     : framebuffer(width, height) {
     light_dir = Vector3(0,0,1);
 }
 
-Pipline::~Pipline() = default;
+Pipeline::~Pipeline() = default;
 
-void Pipline::render(const Mesh& mesh,
+void Pipeline::render(const Mesh& mesh,
                      const Matrix4& model_matrix,
                      const Vector3& eye_pos,
                      const Vector3& light_direction){
