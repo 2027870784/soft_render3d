@@ -31,4 +31,6 @@ public:
     void setVexs(const std::array<Vector4,3>& vexs);
     void setColors(const std::array<Vector3,3>& colors);
 
+    void getColors(std::array<Vector3,3>& colors) const;
+
 };

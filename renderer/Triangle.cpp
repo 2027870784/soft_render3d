@@ -62,3 +62,9 @@ void Triangle::setColors(const std::array<Vector3,3>& colors){
     color[1] = colors[1];
     color[2] = colors[2];
 }
+
+void Triangle::getColors(std::array<Vector3,3>& colors) const{
+    colors[0] = color[0];
+    colors[1] = color[1];
+    colors[2] = color[2];
+}
