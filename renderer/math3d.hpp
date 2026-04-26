@@ -41,6 +41,7 @@ public:
     Vector4 w_division() const;
     float dotXYZ(const Vector4& other) const;
     Vector4 crossXYZ(const Vector4& other) const;//计算XYZ分量的叉积
+    Vector3 toVector3() const;
 
     float x() const {return xx;}
     float y() const {return yy;}

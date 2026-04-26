@@ -62,6 +62,10 @@ Vector4 Vector4::normalizeXYZ() const {
     return {xx / n, yy / n, zz / n, ww};
 }
 
+Vector3 Vector4::toVector3() const {
+    return {xx, yy, zz};
+}
+
 Vector4 Vector4::w_division() const {
     if(std::abs(ww) < 1e-6f) return {0.0f, 0.0f, 0.0f, 1.0f};
     return {xx / ww, yy / ww, zz / ww, 1.0f};
