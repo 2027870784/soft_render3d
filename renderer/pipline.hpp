@@ -8,7 +8,7 @@
 
 class Pipline{
     public:
-        Pipline();
+        Pipline(int width = 800, int height = 600);
         ~Pipline();
 
         void render(const Mesh& mesh,

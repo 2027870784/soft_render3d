@@ -32,8 +32,8 @@ namespace{
     }
 }
 
-Pipline::Pipline()
-    : framebuffer(800, 600) {
+Pipline::Pipline(int width, int height)
+    : framebuffer(width, height) {
     light_dir = Vector3(0,0,1);
 }
 
@@ -90,5 +90,6 @@ void Pipline::render(const Mesh& mesh,
         Triangle shaded_triangle({sv0, sv1, sv2}, shaded_colors, triangle.getNormal());
         rasterizer.rasterizeTriangle(shaded_triangle, framebuffer);
         /*by AI end*/
+        framebuffer.saveAsPPM("../build/output.ppm");
     }
 }
