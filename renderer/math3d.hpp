@@ -66,4 +66,5 @@ public:
 
     Vector4 operator*(const Vector4& other) const;//矩阵与向量乘法
     Matrix4 operator*(const Matrix4& other) const;//矩阵与矩阵乘法
+    Matrix4 transpose() const;//返回转置矩阵
 };

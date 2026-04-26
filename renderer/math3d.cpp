@@ -145,3 +145,13 @@ Matrix4 Matrix4::operator*(const Matrix4& other) const {//¾ØÕóÓë¾ØÕó³Ë·¨
     }
     return result;
 }
+
+Matrix4 Matrix4::transpose() const {//·µ»Ø×ªÖÃ¾ØÕó
+    Matrix4 result(0.0f);
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            result.m[i][j] = m[j][i];
+        }
+    }
+    return result;
+}
