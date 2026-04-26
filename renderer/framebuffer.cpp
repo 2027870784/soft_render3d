@@ -25,10 +25,9 @@ void Framebuffer::clear(Vector3 color){
 }
 
 void Framebuffer::setPixel(int x, int y, float z, Vector3 color){
-    if(z < z_buffer[y*width+x])
-    {
-        colors[y*width+x] = color;
-        z_buffer[y*width+x] = z;
+    if(z < z_buffer[getIndex(x,y)]){
+        colors[getIndex(x,y)] = color;
+        z_buffer[getIndex(x,y)] = z;
     }
 }
 

@@ -15,6 +15,12 @@ Vector3 Vector3::operator-(const Vector3& other) const {
     return {xx - other.x(), yy - other.y(), zz - other.z()};
 }
 
+Vector3 Vector3::operator*(float scalar) const {
+    return {xx * scalar, yy * scalar, zz * scalar};
+}
+
+
+
 float Vector3::dot(const Vector3& other) const {
     return xx * other.x() + yy * other.y() + zz * other.z();
 }

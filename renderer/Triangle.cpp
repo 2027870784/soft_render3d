@@ -1,5 +1,6 @@
 #include "Triangle.hpp"
 #include <iostream>
+#include <vector>
 
 Triangle::Triangle(){
     vex[0] = Vector4(0,0,0,1);
@@ -63,8 +64,10 @@ void Triangle::setColors(const std::array<Vector3,3>& colors){
     color[2] = colors[2];
 }
 
-void Triangle::getColors(std::array<Vector3,3>& colors) const{
+std::vector<Vector3> Triangle::getColors() const{
+    std::vector<Vector3> colors(3);
     colors[0] = color[0];
     colors[1] = color[1];
     colors[2] = color[2];
+    return colors;
 }

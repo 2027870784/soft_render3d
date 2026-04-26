@@ -26,4 +26,5 @@ public:
 
     void saveAsPPM(const std::string& file_path) const;
 
+    int getIndex(int x, int y) const{return y * width + x;};
 };
