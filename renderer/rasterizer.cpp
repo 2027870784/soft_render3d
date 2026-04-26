@@ -1,7 +1,9 @@
 #include "rasterizer.hpp"
 #include "Triangle.hpp"
 #include "math3d.hpp"
-#include<cmath>
+#include <algorithm>
+#include <cmath>
+#include <tuple>
 
 
 namespace{//匿名空间，只允许在当前文件中使用
@@ -49,13 +51,13 @@ void Rasterizer::rasterizeTriangle(const Triangle& triangle, Framebuffer& frameb
     float max_x = std::max(a.x(), std::max(b.x(), c.x()));
     float max_y = std::max(a.y(), std::max(b.y(), c.y()));
 
-    int bbox_min_x = std::floor(min_x);
-    int bbox_min_y = std::floor(min_y);
-    int bbox_max_x = std::ceil(max_x);
-    int bbox_max_y = std::ceil(max_y);
+    int bbox_min_x = std::max(0, static_cast<int>(std::floor(min_x)));
+    int bbox_min_y = std::max(0, static_cast<int>(std::floor(min_y)));
+    int bbox_max_x = std::min(width - 1, static_cast<int>(std::ceil(max_x)));
+    int bbox_max_y = std::min(height - 1, static_cast<int>(std::ceil(max_y)));
 
-    for(int x = bbox_min_x; x < bbox_max_x; x++){
-        for(int y = bbox_min_y; y < bbox_max_y; y++){
+    for(int x = bbox_min_x; x <= bbox_max_x; x++){
+        for(int y = bbox_min_y; y <= bbox_max_y; y++){
             if(insideTriangle(x + 0.5, y + 0.5, triangle)){
                 auto [alpha, beta, gamma] = computeBarycentric2D(x + 0.5, y + 0.5, {a.toVector3(),b.toVector3(),c.toVector3()});
                 //利用重心坐标插值z值

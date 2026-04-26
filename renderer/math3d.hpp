@@ -12,7 +12,7 @@ public:
     Vector3 operator+(const Vector3& other) const;
     Vector3 operator-(const Vector3& other) const;
     Vector3 operator*(float scalar) const;
-    Vector3 operator=(const Vector3& other);
+    Vector3& operator=(const Vector3& other);
     float dot(const Vector3& other) const;
     Vector3 cross(const Vector3& other) const;
     float norm() const;
@@ -65,4 +65,5 @@ public:
     ~Matrix4();
 
     Vector4 operator*(const Vector4& other) const;//矩阵与向量乘法
+    Matrix4 operator*(const Matrix4& other) const;//矩阵与矩阵乘法
 };

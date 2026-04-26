@@ -1,5 +1,5 @@
 #pragma once
-#include "triangle.hpp"
+#include "Triangle.hpp"
 #include "framebuffer.hpp"
 
 

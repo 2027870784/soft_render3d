@@ -19,7 +19,8 @@ Vector3 Vector3::operator*(float scalar) const {
     return {xx * scalar, yy * scalar, zz * scalar};
 }
 
-Vector3 Vector3::operator=(const Vector3& other){
+Vector3& Vector3::operator=(const Vector3& other){
+    if(this == &other) return *this;
     xx = other.x();
     yy = other.y();
     zz = other.z();
@@ -131,4 +132,16 @@ Vector4 Matrix4::operator*(const Vector4& other) const {//矩阵与向量乘法
         other.x() * m[1][0] + other.y() * m[1][1] + other.z() * m[1][2] + other.w() * m[1][3],
         other.x() * m[2][0] + other.y() * m[2][1] + other.z() * m[2][2] + other.w() * m[2][3],
         other.x() * m[3][0] + other.y() * m[3][1] + other.z() * m[3][2] + other.w() * m[3][3]);
+}
+
+Matrix4 Matrix4::operator*(const Matrix4& other) const {//矩阵与矩阵乘法
+    Matrix4 result(0.0f);
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            for (int k = 0; k < 4; ++k) {
+                result.m[i][j] += m[i][k] * other.m[k][j];
+            }
+        }
+    }
+    return result;
 }
