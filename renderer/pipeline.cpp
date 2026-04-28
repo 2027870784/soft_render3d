@@ -49,7 +49,7 @@ void Pipeline::render(const Mesh& mesh,
     auto view_matrix = get_view_matrix(eye_pos);
     auto MVP = projection_matrix * view_matrix * model_matrix;
 
-    /*all by AI*/
+    /*all by AI_temp*/
     Rasterizer rasterizer(framebuffer.getWidth(), framebuffer.getHeight());
 
     framebuffer.clear(Vector3(0.0f, 0.0f, 0.0f));
@@ -95,7 +95,7 @@ void Pipeline::render(const Mesh& mesh,
         };
         Triangle shaded_triangle({sv0, sv1, sv2}, shaded_colors, triangle.getNormal());
         rasterizer.rasterizeTriangle(shaded_triangle, framebuffer);
-        /*by AI end*/
+        /*temp end*/
     }
     framebuffer.saveAsPPM("./output.ppm");
 }

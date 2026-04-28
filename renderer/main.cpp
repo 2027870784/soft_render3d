@@ -5,6 +5,7 @@
 
 int main(){
     Pipeline pipeline(800, 600);
+    /*temp*/
     Mesh cube = Mesh::createCube();
         constexpr float deg_to_rad = 3.14159265f / 180.0f;
     float angle_y = 35.0f * deg_to_rad;
@@ -25,6 +26,7 @@ int main(){
     );
 
     Matrix4 model_matrix = rotation_y * rotation_x;
+    /*temp end*/
     pipeline.render(cube, model_matrix, Vector3(0,0,3), Vector3(0,0,1));
     return 0;
 }
