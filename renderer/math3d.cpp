@@ -48,6 +48,10 @@ Vector3 Vector3::normalize() const {
     return {xx / n, yy / n, zz / n};
 }
 
+Vector4 Vector3::toVector4_w0() const {
+    return {xx, yy, zz, 0.0f};
+}
+
 
 
 //Vector4¿‡

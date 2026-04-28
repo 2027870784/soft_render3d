@@ -1,5 +1,7 @@
 #pragma once
 
+class Vector4;
+
 class Vector3 {
 private:
     float xx, yy, zz;
@@ -21,7 +23,8 @@ public:
     float x() const {return xx;}
     float y() const {return yy;}
     float z() const {return zz;}
-
+    Vector4 toVector4_w0() const;
+    
     float r() const {return xx;}
     float g() const {return yy;}
     float b() const {return zz;}

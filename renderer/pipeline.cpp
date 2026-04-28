@@ -66,7 +66,10 @@ void Pipeline::render(const Mesh& mesh,
         Vector4 v1_ndc = v1_clip.w_division();
         Vector4 v2_ndc = v2_clip.w_division();
 
-        float intensity = std::max(0.0f, triangle.getNormal().normalize().dot(light_dir));
+        auto normal_world_ = model_matrix * triangle.getNormal().toVector4_w0();
+        auto normal_world = normal_world_.toVector3().normalize();
+
+        float intensity = std::max(0.0f, normal_world.dot(light_dir));
         auto colors = triangle.getColors();
 
         Vector4 sv0(
