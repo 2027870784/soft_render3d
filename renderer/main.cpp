@@ -1,7 +1,11 @@
 #include "pipeline.hpp"
 #include "mesh.hpp"
+#ifndef NOMINMAX
 #define NOMINMAX
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif
 #include <windows.h>
 #include <algorithm>
 #include <chrono>
@@ -35,6 +39,113 @@ Matrix4 makeRotationY(float angle) {
         -std::sin(angle), 0.0f, std::cos(angle), 0.0f,
          0.0f,            0.0f, 0.0f,            1.0f
     );
+}
+
+Matrix4 makeRotationZ(float angle) {
+    return Matrix4(
+        std::cos(angle), -std::sin(angle), 0.0f, 0.0f,
+        std::sin(angle),  std::cos(angle), 0.0f, 0.0f,
+        0.0f,             0.0f,            1.0f, 0.0f,
+        0.0f,             0.0f,            0.0f, 1.0f
+    );
+}
+
+Matrix4 makeTranslation(float x, float y, float z) {
+    Matrix4 translation = Matrix4::identity();
+    translation.m[0][3] = x;
+    translation.m[1][3] = y;
+    translation.m[2][3] = z;
+    return translation;
+}
+
+Matrix4 makeScale(float sx, float sy, float sz) {
+    return Matrix4(
+        sx,   0.0f, 0.0f, 0.0f,
+        0.0f, sy,   0.0f, 0.0f,
+        0.0f, 0.0f, sz,   0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    );
+}
+
+Mesh transformMesh(const Mesh& source, const Matrix4& transform) {
+    Mesh transformed;
+    transformed.vertices.reserve(source.triangles.size() * 3);
+    transformed.triangles.reserve(source.triangles.size());
+    transformed.normals.reserve(source.triangles.size());
+
+    for (const auto& triangle : source.triangles) {
+        const std::array<Vector4, 3> transformed_vertices = {
+            transform * triangle.a(),
+            transform * triangle.b(),
+            transform * triangle.c()
+        };
+
+        const Vector3 transformed_normal =
+            (transform * triangle.getNormal().toVector4_w0()).toVector3().normalize();
+
+        const auto triangle_colors = triangle.getColors();
+        const std::array<Vector3, 3> colors = {
+            triangle_colors[0],
+            triangle_colors[1],
+            triangle_colors[2]
+        };
+
+        transformed.vertices.push_back(transformed_vertices[0]);
+        transformed.vertices.push_back(transformed_vertices[1]);
+        transformed.vertices.push_back(transformed_vertices[2]);
+        transformed.normals.push_back(transformed_normal);
+        transformed.triangles.emplace_back(transformed_vertices, colors, transformed_normal);
+    }
+
+    return transformed;
+}
+
+void appendMesh(Mesh& destination, const Mesh& source) {
+    destination.vertices.insert(destination.vertices.end(), source.vertices.begin(), source.vertices.end());
+    destination.normals.insert(destination.normals.end(), source.normals.begin(), source.normals.end());
+    destination.colors.insert(destination.colors.end(), source.colors.begin(), source.colors.end());
+    destination.triangles.insert(destination.triangles.end(), source.triangles.begin(), source.triangles.end());
+}
+
+Mesh buildScene(float elapsed) {
+    Mesh scene;
+
+    const Mesh cube = Mesh::createCube(0.9f);
+    const Mesh pyramid = Mesh::createPyramid(1.0f, 1.3f);
+    const Mesh octahedron = Mesh::createOctahedron(1.1f);
+    const Mesh floor = Mesh::createCube(1.0f);
+
+    appendMesh(
+        scene,
+        transformMesh(
+            cube,
+            makeTranslation(-1.7f, 0.0f, 0.0f) *
+            makeRotationY(elapsed * 1.3f) *
+            makeRotationX(elapsed * 0.6f)));
+
+    appendMesh(
+        scene,
+        transformMesh(
+            pyramid,
+            makeTranslation(0.0f, 0.1f + 0.15f * std::sin(elapsed * 1.4f), 0.0f) *
+            makeRotationY(-elapsed * 0.9f)));
+
+    appendMesh(
+        scene,
+        transformMesh(
+            octahedron,
+            makeTranslation(1.8f, 0.0f, 0.0f) *
+            makeRotationX(elapsed * 0.8f) *
+            makeRotationZ(elapsed * 1.1f)));
+
+    appendMesh(
+        scene,
+        transformMesh(
+            floor,
+            makeTranslation(0.0f, -1.2f, 0.0f) *
+            makeScale(6.0f, 0.15f, 4.5f)));
+
+    return scene;
 }
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT message, WPARAM w_param, LPARAM l_param) {
@@ -138,7 +249,6 @@ int main() {
     }
 
     Pipeline pipeline(kRenderWidth, kRenderHeight);
-    Mesh cube = Mesh::createCube();
     std::vector<std::uint32_t> pixel_buffer(static_cast<std::size_t>(kRenderWidth * kRenderHeight));
 
     using clock = std::chrono::steady_clock;
@@ -166,8 +276,8 @@ int main() {
         const auto now = clock::now();
         const float elapsed = std::chrono::duration<float>(now - start_time).count();
 
-        Matrix4 model_matrix = makeRotationY(elapsed * 0.9f) * makeRotationX(elapsed * 0.55f);
-        pipeline.render(cube, model_matrix, Vector3(0.0f, 0.0f, 3.0f), Vector3(0.4f, 0.8f, 1.0f));
+        const Mesh scene = buildScene(elapsed);
+        pipeline.render(scene, Matrix4::identity(), Vector3(0.0f, 0.6f, 5.8f), Vector3(0.4f, 0.8f, 1.0f));
 
         ++frames_in_window;
         const float fps_elapsed = std::chrono::duration<float>(now - fps_window_start).count();
